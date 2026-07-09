@@ -10,6 +10,11 @@
     "startDate": "Apr 10, 2025",
     "refundDate": "May 10, 2025",
     "externalUrl": "cydeo.com",
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "johndoe@example.com",
+    "phone": "1234567890",
+    "howDidYouHearAboutUs": "email",
     "terms": "https://docs.google.com/document/d/1FZwuv6fKa8hUAlfSykQ8jN85ycl6VCIBe_HYbY5UMkM/edit#heading=h.iq7wiy3olb6",
     "prices": [
       {
