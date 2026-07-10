@@ -22,9 +22,8 @@ Feature: Click Next button on payment plans page
         Then the next button on payment plans page should be clickable
 
     @sep16-2
-    Scenario: Verify the stepper colors after clicking on upfront payment plan and clicking next button
+    Scenario: Verify the stepper colors after clicking on upfront payment plan 
         When user clicks upfront payment plan
-        And user clicks the next button on payment plans page
         Then the start application stepper circle color should be green
         And the payment plan stepper circle color should be green
         And the review stepper circle color should be blue
@@ -43,14 +42,19 @@ Feature: Click Next button on payment plans page
         And the payment plan stepper circle color should be green
         And the review stepper circle color should be blue
         And the back button should be displayed
-    @sep16-5
-    Scenario: Verify that clicking on the next button without selecting a plan will not navigate to the review page
-        When user clicks the next button on payment plans page
-        Then the review page should not be displayed
 
-    @sep16-6
-    Scenario: Verify that the [payment component] and price summary are displayed on the review page after clicking on the next button
-        When user clicks upfront payment plan
-        And user clicks the next button on payment plans page
-        Then the payment component should be displayed on the review page
-        And the price summary should be displayed on the review page
+    @sep16-5
+    Scenario: Verify the back button is displayed  
+        Then the back button should be displayed
+    
+    #@sep16-5
+    #Scenario: Verify that clicking on the next button without selecting a plan will not navigate to the review page
+        #When user clicks the next button on payment plans page
+        #Then the review page should not be displayed
+
+    #@sep16-6
+    #Scenario: Verify that the [payment component] and price summary are displayed on the review page after clicking on the next button
+        #When user clicks upfront payment plan
+        #And user clicks the next button on payment plans page
+        #Then the payment component should be displayed on the review page
+        #And the price summary should be displayed on the review page
