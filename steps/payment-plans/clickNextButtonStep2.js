@@ -1,67 +1,56 @@
 import { Given, Then, When } from "@cucumber/cucumber";
 import { expect } from "@playwright/test";
-import {startApplicationPage, paymentPlanPage,page,} from "../../globalPagesSetup.js";
+import {
+  paymentPlanPage,
+  page,
+  startApplicationPage,
+} from "../../globalPagesSetup.js";
 import { productInfo } from "../../utilities/qa-data-reader.js";
 
-Given("user has completed the start application step", async function () {
-// This step assumes that the user has already completed the start application step and is now on the payment plans page.
-
-    await startApplicationPage.enterFirstName(productInfo.firstName);
-    await startApplicationPage.enterLastName(productInfo.lastName);
-    await startApplicationPage.enterEmail(productInfo.email);
-    await startApplicationPage.enterPhoneNumber(productInfo.phone);
-    await startApplicationPage.selectHowDidYouHearAboutUs(productInfo.howDidYouHearAboutUs);
-    await startApplicationPage.clickNextButton();
+Then("the next button is disabled by deault", async function () {
+  await expect(paymentPlanPage.inactiveNextButton).toBeVisible;
+  await expect(paymentPlanPage.inactiveNextButton).toBeDisabled();
 });
 
-When("user clicks upfront payment plan", async function () {
-    await paymentPlanPage.upfrontPaymentOption.click();
-
+When("user selects the {string} payment plan", async function (string) {
+  await paymentPlanPage.selectPaymentPlan(string);
 });
 
-When("user clicks monthly payment plan", async function () {
-    await paymentPlanPage.installmentsPaymentOption.click();
+Then("the next button is enabled", async function () {
+  await expect(paymentPlanPage.activeNextButton).toBeVisible();
+  await expect(paymentPlanPage.activeNextButton).toBeEnabled();
 });
 
-When("user clicks the next button on payment plans page", async function () {
-    await paymentPlanPage.clickNextButton();
+When("user clicks on the next button", async function () {
+  await paymentPlanPage.clickNextButton();
 });
 
-When(
-  "When user is on the review page the back button should be displayed", async function () {
-    await expect(paymentPlanPage.backButton).toBeVisible();
-  });
-
-
-Then("the next button on payment plans page should be clickable", async function () {
-    await expect(paymentPlanPage.nextButton).toBeEnabled();
+Then("the review step stepper circle is blue", async function () {
+  await expect(startApplicationPage.reviewStepCircle).toHaveCSS("background-color","rgb(1, 201, 255)",);
 });
 
-Then("the start application stepper circle color should be green", async function () {
-    // Verify that the start application stepper circle has the class "green"
-    await expect(startApplicationPage.startApplicationStepperCircle).toHaveCss("background-color", "rgb(0, 128, 0)"); // Assuming green is represented by rgb(0, 128, 0)
+Then("the payment plan stepper circle is green", async function () {
+  await expect(startApplicationPage.paymentPlanStepCircle).toHaveCSS("background-color","rgb(172, 245, 138)",);
 });
 
-Then("the payment plan stepper circle color should be green", async function () {
-    await expect(paymentPlanPage.paymentPlanStepperCircle).toHaveClass("green");
+Then("the start application stepper circle is green", async function () {
+  await expect(startApplicationPage.startApplicationStepCircle).toHaveCSS("background-color","rgb(172, 245, 138)",);
 });
 
-Then("the review stepper circle color should be blue", async function () {
-    await expect(paymentPlanPage.reviewStepperCircle).toHaveClass("blue");
+Then("the upfront payment summary is displayed", async function () {
+  await expect(paymentPlanPage.basePriceAmountUnderUpfront).toBeVisible();
+  await expect(paymentPlanPage.upfrontDiscountAmountUnderUpfront).toBeVisible();
+  await expect(paymentPlanPage.subtotalAmountUnderUpfront).toBeVisible();
 });
 
-Then("the back button should be displayed", async function () {
-    await expect(paymentPlanPage.backButton).toBeVisible(); 
+Then("the installment payment summary is displayed", async function () {
+  await expect(paymentPlanPage.basePriceAmountUnderInstallments).toBeVisible();
+  await expect(paymentPlanPage.installmentsNumberUnderInstallments,).toBeVisible();
+  await expect(paymentPlanPage.pricePerInstallmentsAmountUnderInstallments,).toBeVisible();
+  await expect(paymentPlanPage.firstMonthPaymentAmountUnderInstallments,).toBeVisible();
 });
 
-Then("the review page should not be displayed", async function () {
-    await expect(paymentPlanPage.reviewPage).not.toBeVisible();
-});
-
-Then("the payment component should be displayed on the review page", async function () {
-    await expect(paymentPlanPage.paymentComponent).toBeVisible();
-});
-
-Then("the price summary should be displayed on the review page", async function () {
-    await expect(paymentPlanPage.priceSummary).toBeVisible();
+Then("the back button is displayed and enabled", async function () {
+  await expect(paymentPlanPage.backButton).toBeVisible();
+  await expect(paymentPlanPage.backButton).toBeEnabled();
 });
