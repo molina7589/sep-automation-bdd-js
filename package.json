@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "npx cucumber-js",
+    "tests:headless": "npx cucumber-js",
     "test:tag": "npx cucumber-js --tags @sep16",
     "test:tag:dryrun": "npx cucumber-js --tags @sep16-2 --dry-run",
     "test:smoke": "npx cucumber-js --tags @smoke",
